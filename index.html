@@ -12,52 +12,32 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;}
 body{background:#080a10;font-family:'Share Tech Mono',monospace;color:var(--gold);overflow:hidden;width:100vw;height:100dvh;display:flex;flex-direction:column;}
-
-/* ── SPLASH ── */
 #splash{position:fixed;inset:0;z-index:500;background:#080a10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:32px;}
 #splash .logo{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:28px;letter-spacing:6px;color:var(--gold);text-align:center;}
 #splash .sub{font-size:10px;letter-spacing:3px;opacity:0.4;text-align:center;margin-top:-14px;}
 #splash .divider{width:60px;height:1px;background:var(--border);}
 #splash .status{font-size:11px;letter-spacing:2px;color:var(--cyan);text-align:center;min-height:16px;}
-.splash-btn{
-  padding:14px 28px;background:rgba(200,168,75,0.12);border:1px solid var(--border);
-  border-radius:8px;color:var(--gold);font-family:'Share Tech Mono',monospace;
-  font-size:12px;letter-spacing:2px;cursor:pointer;width:100%;max-width:280px;text-align:center;
-}
+.splash-btn{padding:14px 28px;background:rgba(200,168,75,0.12);border:1px solid var(--border);border-radius:8px;color:var(--gold);font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;cursor:pointer;width:100%;max-width:280px;text-align:center;}
 .splash-btn.primary{background:rgba(200,168,75,0.25);border-color:var(--gold);}
 #splash .tip{font-size:9px;letter-spacing:1px;opacity:0.3;text-align:center;max-width:280px;line-height:1.9;}
-
-/* ── VIDEO LAYER ── */
 #video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;display:none;}
-
-/* ── PHOTO LAYER ── */
 #photo-layer{position:fixed;inset:0;z-index:0;display:none;background:#080a10;}
 #photo-layer canvas{width:100%;height:100%;}
-
-/* ── OVERLAY CANVAS ── */
 #overlay{position:fixed;inset:0;z-index:2;touch-action:none;}
-
-/* ── HUD CORNERS ── */
 .hc{position:fixed;z-index:10;width:24px;height:24px;border-color:rgba(200,168,75,0.5);border-style:solid;}
 .hc.tl{top:10px;left:10px;border-width:2px 0 0 2px;}
 .hc.tr{top:10px;right:10px;border-width:2px 2px 0 0;}
 .hc.bl{bottom:10px;left:10px;border-width:0 0 2px 2px;}
 .hc.br{bottom:10px;right:10px;border-width:0 2px 2px 0;}
-
-/* ── TOP BAR ── */
 #topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:none;flex-direction:row;align-items:center;justify-content:space-between;padding:10px 14px 8px;background:linear-gradient(to bottom,rgba(0,0,0,0.85) 0%,transparent 100%);}
 #topbar.show{display:flex;}
 .title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:3px;}
 #dist-display{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:30px;color:var(--cyan);text-shadow:0 0 16px rgba(0,229,255,0.5);line-height:1;min-width:90px;text-align:right;}
 #dist-display.over{color:var(--red);text-shadow:0 0 16px rgba(255,68,68,0.5);}
 #dist-display sup{font-size:14px;opacity:0.7;}
-
-/* ── SOURCE BADGE ── */
 #source-badge{position:fixed;top:46px;left:14px;z-index:20;font-size:9px;letter-spacing:2px;padding:3px 8px;border-radius:3px;display:none;}
 #source-badge.cam{background:rgba(76,175,80,0.2);border:1px solid rgba(76,175,80,0.4);color:#88ff88;}
 #source-badge.photo{background:rgba(200,168,75,0.15);border:1px solid var(--border);color:var(--gold);}
-
-/* ── BOTTOM BAR ── */
 #bottombar{position:fixed;bottom:0;left:0;right:0;z-index:20;display:none;}
 #bottombar.show{display:block;}
 #modebar{display:flex;background:var(--panel);border-top:1px solid var(--border);}
@@ -67,11 +47,20 @@ body{background:#080a10;font-family:'Share Tech Mono',monospace;color:var(--gold
 .mode-btn.active{background:rgba(200,168,75,0.1);color:var(--gold);box-shadow:inset 0 -2px 0 var(--gold);}
 #infostrip{display:flex;align-items:center;justify-content:space-between;padding:5px 14px 10px;background:var(--panel);font-size:10px;letter-spacing:1px;color:rgba(200,168,75,0.5);}
 #infostrip .meta{color:rgba(0,229,255,0.6);}
-
-/* ── CALIBRATION OVERLAY ── */
-#calib-overlay{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;}
-#calib-overlay.show{display:flex;}
-#calib-ui{position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:1px solid var(--border);padding:12px 16px 20px;display:flex;flex-direction:column;gap:8px;}
+#calib-overlay{position:fixed;inset:0;z-index:100;display:none;pointer-events:none;}
+#calib-overlay.show{display:block;}
+#calib-sight{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;pointer-events:none;}
+#calib-sight::before,#calib-sight::after{content:'';position:absolute;background:rgba(200,168,75,0.9);}
+#calib-sight::before{width:1px;height:100%;left:50%;top:0;}
+#calib-sight::after{height:1px;width:100%;top:50%;left:0;}
+.sight-ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(200,168,75,0.7);animation:sightpulse 1.8s infinite;}
+.sight-ring.inner{inset:16px;border-color:rgba(200,168,75,0.4);animation-delay:0.4s;}
+@keyframes sightpulse{0%,100%{opacity:0.5;}50%{opacity:1;}}
+#calib-p1,#calib-p2{position:fixed;width:18px;height:18px;border-radius:50%;border:2px solid;transform:translate(-50%,-50%);display:none;pointer-events:none;z-index:101;}
+#calib-p1{border-color:#4caf50;background:rgba(76,175,80,0.3);}
+#calib-p2{border-color:#00e5ff;background:rgba(0,229,255,0.3);}
+#calib-ui{position:fixed;bottom:0;left:0;right:0;z-index:102;background:var(--panel);border-top:1px solid var(--border);padding:12px 16px 24px;display:none;flex-direction:column;gap:8px;pointer-events:all;}
+#calib-ui.show{display:flex;}
 #calib-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:3px;}
 #calib-status{font-size:10px;letter-spacing:1px;color:var(--cyan);min-height:14px;}
 #calib-hint{font-size:9px;letter-spacing:1px;opacity:0.4;line-height:1.6;}
@@ -79,8 +68,11 @@ body{background:#080a10;font-family:'Share Tech Mono',monospace;color:var(--gold
 #calib-row label{font-size:10px;opacity:0.5;white-space:nowrap;}
 #calib-inches{flex:1;background:rgba(200,168,75,0.07);border:1px solid var(--border);border-radius:6px;color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:18px;padding:6px 10px;outline:none;text-align:center;}
 #calib-done{padding:10px 18px;background:rgba(200,168,75,0.2);border:1px solid var(--border);border-radius:6px;color:var(--gold);font-family:'Share Tech Mono',monospace;font-size:11px;cursor:pointer;white-space:nowrap;}
-
-/* ── POPUP ── */
+#calib-capture{position:fixed;bottom:160px;left:50%;transform:translateX(-50%);z-index:102;pointer-events:all;width:72px;height:72px;border-radius:50%;background:rgba(200,168,75,0.15);border:2px solid var(--gold);color:var(--gold);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;box-shadow:0 0 20px rgba(200,168,75,0.2);}
+#calib-capture.show{display:flex;}
+#calib-capture:active{background:rgba(200,168,75,0.35);}
+#calib-capture .cap-icon{font-size:22px;line-height:1;}
+#calib-capture .cap-label{font-size:8px;}
 #popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:300;align-items:center;justify-content:center;}
 #popup-overlay.show{display:flex;}
 #popup-box{background:#0d1018;border:1px solid var(--border);border-radius:10px;padding:20px;width:280px;display:flex;flex-direction:column;gap:12px;}
@@ -89,38 +81,22 @@ body{background:#080a10;font-family:'Share Tech Mono',monospace;color:var(--gold
 .popup-row{display:flex;gap:8px;}
 .popup-row button{flex:1;padding:10px;border-radius:6px;border:1px solid var(--border);background:rgba(200,168,75,0.08);color:var(--gold);font-family:'Share Tech Mono',monospace;font-size:12px;cursor:pointer;}
 .popup-row button.primary{background:rgba(200,168,75,0.22);}
-
-/* ── TOAST ── */
 #toast{position:fixed;top:58px;left:50%;transform:translateX(-50%);background:rgba(10,18,10,0.95);border:1px solid rgba(76,175,80,0.45);color:#88ff88;font-size:11px;letter-spacing:2px;padding:7px 16px;border-radius:4px;z-index:400;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;}
 #toast.show{opacity:1;}
-
-/* scanlines */
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px);pointer-events:none;z-index:600;}
 </style>
 </head>
 <body>
-
-<!-- VIDEO -->
 <video id="video" autoplay playsinline muted></video>
-
-<!-- PHOTO LAYER -->
 <div id="photo-layer"><canvas id="photo-canvas"></canvas></div>
-
-<!-- OVERLAY CANVAS -->
 <canvas id="overlay"></canvas>
-
-<!-- HUD CORNERS -->
 <div class="hc tl"></div><div class="hc tr"></div>
 <div class="hc bl"></div><div class="hc br"></div>
-
-<!-- TOP BAR -->
 <div id="topbar">
   <div class="title">TACMEASURE <span style="opacity:0.35;font-weight:300">// WH40K</span></div>
   <div id="dist-display">--<sup>"</sup></div>
 </div>
 <div id="source-badge"></div>
-
-<!-- BOTTOM BAR -->
 <div id="bottombar">
   <div id="modebar">
     <button class="mode-btn active" data-mode="move" onclick="setMode('move')"><span class="icon">🦶</span>MOVE</button>
@@ -135,23 +111,29 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
     <span class="meta" id="meta-text"></span>
   </div>
 </div>
-
-<!-- CALIBRATION -->
 <div id="calib-overlay">
-  <div id="calib-ui">
-    <div id="calib-title">KALIBRERING</div>
-    <div id="calib-status">Tryck på punkt 1 i bilden</div>
-    <div id="calib-hint">Välj två punkter med känt avstånd — t.ex. ändarna på ett måttband i bilden</div>
-    <div id="calib-row">
-      <label>AVSTÅND:</label>
-      <input type="number" id="calib-inches" value="12" min="1" max="96" inputmode="decimal">
-      <span style="font-size:12px;opacity:0.5;">"</span>
-      <button id="calib-done" onclick="confirmCalib()">✓ KLAR</button>
-    </div>
+  <div id="calib-sight">
+    <div class="sight-ring"></div>
+    <div class="sight-ring inner"></div>
+  </div>
+  <div id="calib-p1"></div>
+  <div id="calib-p2"></div>
+</div>
+<button id="calib-capture" onclick="calibCapture()">
+  <span class="cap-icon">⊕</span>
+  <span class="cap-label" id="cap-label">PUNKT 1</span>
+</button>
+<div id="calib-ui">
+  <div id="calib-title">KALIBRERING</div>
+  <div id="calib-status">Rikta siktet mot punkt 1 — tryck ⊕</div>
+  <div id="calib-hint">Välj två punkter med känt avstånd — t.ex. ändarna på ett måttband</div>
+  <div id="calib-row">
+    <label>AVSTÅND:</label>
+    <input type="number" id="calib-inches" value="12" min="1" max="96" inputmode="decimal">
+    <span style="font-size:12px;opacity:0.5;">"</span>
+    <button id="calib-done" onclick="confirmCalib()">✓ KLAR</button>
   </div>
 </div>
-
-<!-- SPLASH -->
 <div id="splash">
   <div class="logo">TACMEASURE</div>
   <div class="sub">// WH40K TACTICAL OVERLAY //</div>
@@ -160,14 +142,8 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
   <button class="splash-btn primary" id="btn-cam" onclick="useCam()" style="display:none">📷 ANVÄND KAMERA</button>
   <button class="splash-btn" id="btn-photo" onclick="usePhoto()" style="display:none">🖼 LADDA UPP FOTO</button>
   <input type="file" id="file-input" accept="image/*" style="display:none">
-  <div class="tip">
-    KAMERA: Rikta mot spelbordet ovanifrån.<br>
-    FOTO: Ladda upp en bild av spelplanen.<br>
-    Kalibrera sedan med ett känt avstånd.
-  </div>
+  <div class="tip">KAMERA: Rikta mot spelbordet ovanifrån.<br>FOTO: Ladda upp en bild av spelplanen.<br>Kalibrera sedan med ett känt avstånd.</div>
 </div>
-
-<!-- POPUP -->
 <div id="popup-overlay">
   <div id="popup-box">
     <label id="popup-label">VÄRDE (INCH)</label>
@@ -179,403 +155,241 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
   </div>
 </div>
 <div id="toast"></div>
-
 <script>
-// ═══════════════════════════════════
-// GLOBALS
-// ═══════════════════════════════════
-const video       = document.getElementById('video');
-const overlay     = document.getElementById('overlay');
-const ctx         = overlay.getContext('2d');
-const photoLayer  = document.getElementById('photo-layer');
-const photoCanvas = document.getElementById('photo-canvas');
-const photoCtx    = photoCanvas.getContext('2d');
+const video=document.getElementById('video');
+const overlay=document.getElementById('overlay');
+const ctx=overlay.getContext('2d');
+const photoLayer=document.getElementById('photo-layer');
+const photoCanvas=document.getElementById('photo-canvas');
+const photoCtx=photoCanvas.getContext('2d');
+let sourceMode=null,boardImage=null,pxPerInch=60,zoom=1,panX=0,panY=0;
+let imgOffX=0,imgOffY=0,imgScale=1;
+let calibPts=[],calibActive=false;
+let mode='move',phase='start';
+let startPt=null,endPt=null,pathPts=[],obstacles=[],obsStart=null;
+let moveLimit=6,advBonus=3,weapRange=24;
+const CELL=0.5;
+let touches={},isPinching=false,lastPinchDist=null,lastPanPos=null;
+let mouseDown=false,popupResolve=null,toastTimer=null;
 
-let sourceMode    = null; // 'cam' | 'photo'
-let boardImage    = null;
-let pxPerInch     = 60;   // pixels (in source space) per inch — calibrated
-let zoom          = 1;
-let panX          = 0, panY = 0;
-let imgOffX       = 0, imgOffY = 0, imgScale = 1; // how image fits in window
-
-// Calibration
-let calibPts      = [];
-let calibActive   = false;
-
-// Game
-let mode          = 'move', phase = 'start';
-let startPt       = null, endPt = null, pathPts = [], obstacles = [], obsStart = null;
-let moveLimit     = 6, advBonus = 3, weapRange = 24;
-const CELL        = 0.5;
-
-// Touch
-let touches       = {}, isPinching = false, lastPinchDist = null, lastPanPos = null;
-let mouseDown     = false;
-let popupResolve  = null, toastTimer = null;
-
-// ═══════════════════════════════════
-// INIT — try camera first
-// ═══════════════════════════════════
-async function init() {
+async function init(){
   setSplashStatus('Initierar kamera…');
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment', width:{ideal:1920}, height:{ideal:1080} }
-    });
-    video.srcObject = stream;
-    await new Promise(r => video.addEventListener('loadedmetadata', r, {once:true}));
-    // Camera works!
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1920},height:{ideal:1080}}});
+    video.srcObject=stream;
+    await new Promise(r=>video.addEventListener('loadedmetadata',r,{once:true}));
     setSplashStatus('✓ KAMERA AKTIV');
-    showButtons(true, true);
-  } catch(e) {
-    // Camera failed — show fallback
-    if (e.name === 'NotAllowedError') {
-      setSplashStatus('⚠ KAMERA NEKAD — välj foto');
-    } else if (e.name === 'NotFoundError') {
-      setSplashStatus('⚠ INGEN KAMERA — välj foto');
-    } else {
-      setSplashStatus('⚠ KAMERA EJ TILLGÄNGLIG');
-    }
-    showButtons(false, true);
+    showButtons(true,true);
+  }catch(e){
+    if(e.name==='NotAllowedError') setSplashStatus('⚠ KAMERA NEKAD — välj foto');
+    else if(e.name==='NotFoundError') setSplashStatus('⚠ INGEN KAMERA — välj foto');
+    else setSplashStatus('⚠ KAMERA EJ TILLGÄNGLIG');
+    showButtons(false,true);
   }
 }
-
-function setSplashStatus(t) { document.getElementById('splash-status').textContent = t; }
-function showButtons(cam, photo) {
-  document.getElementById('btn-cam').style.display   = cam   ? 'block' : 'none';
-  document.getElementById('btn-photo').style.display = photo ? 'block' : 'none';
+function setSplashStatus(t){document.getElementById('splash-status').textContent=t;}
+function showButtons(cam,photo){
+  document.getElementById('btn-cam').style.display=cam?'block':'none';
+  document.getElementById('btn-photo').style.display=photo?'block':'none';
 }
-
-function useCam() {
-  sourceMode = 'cam';
-  video.style.display = 'block';
-  document.getElementById('splash').style.display = 'none';
-  showHUD();
-  setBadge('cam', 'KAMERA LIVE');
-  // Camera mode: pxPerInch is set during calibration
-  startCalib();
+function useCam(){
+  sourceMode='cam';video.style.display='block';
+  document.getElementById('splash').style.display='none';
+  showHUD();setBadge('cam','KAMERA LIVE');startCalib();
 }
-
-function usePhoto() {
-  document.getElementById('file-input').click();
-}
-
-document.getElementById('file-input').addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const img = new Image();
-    img.onload = () => {
-      boardImage = img;
-      sourceMode = 'photo';
-      renderPhotoLayer();
-      document.getElementById('splash').style.display = 'none';
-      showHUD();
-      setBadge('photo', 'FOTO-LÄGE');
-      startCalib();
+function usePhoto(){document.getElementById('file-input').click();}
+document.getElementById('file-input').addEventListener('change',e=>{
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const img=new Image();
+    img.onload=()=>{
+      boardImage=img;sourceMode='photo';renderPhotoLayer();
+      document.getElementById('splash').style.display='none';
+      showHUD();setBadge('photo','FOTO-LÄGE');startCalib();
     };
-    img.src = ev.target.result;
+    img.src=ev.target.result;
   };
   reader.readAsDataURL(file);
 });
-
-function renderPhotoLayer() {
-  photoCanvas.width  = window.innerWidth;
-  photoCanvas.height = window.innerHeight;
-  const sx = window.innerWidth  / boardImage.width;
-  const sy = window.innerHeight / boardImage.height;
-  imgScale = Math.min(sx, sy);
-  imgOffX  = (window.innerWidth  - boardImage.width  * imgScale) / 2;
-  imgOffY  = (window.innerHeight - boardImage.height * imgScale) / 2;
-  photoCtx.fillStyle = '#080a10';
-  photoCtx.fillRect(0, 0, photoCanvas.width, photoCanvas.height);
-  photoCtx.drawImage(boardImage, imgOffX, imgOffY, boardImage.width * imgScale, boardImage.height * imgScale);
-  photoLayer.style.display = 'block';
+function renderPhotoLayer(){
+  photoCanvas.width=window.innerWidth;photoCanvas.height=window.innerHeight;
+  const sx=window.innerWidth/boardImage.width,sy=window.innerHeight/boardImage.height;
+  imgScale=Math.min(sx,sy);
+  imgOffX=(window.innerWidth-boardImage.width*imgScale)/2;
+  imgOffY=(window.innerHeight-boardImage.height*imgScale)/2;
+  photoCtx.fillStyle='#080a10';photoCtx.fillRect(0,0,photoCanvas.width,photoCanvas.height);
+  photoCtx.drawImage(boardImage,imgOffX,imgOffY,boardImage.width*imgScale,boardImage.height*imgScale);
+  photoLayer.style.display='block';
 }
-
-function showHUD() {
+function showHUD(){
   document.getElementById('topbar').classList.add('show');
   document.getElementById('bottombar').classList.add('show');
-  document.getElementById('source-badge').style.display = 'block';
+  document.getElementById('source-badge').style.display='block';
   resizeOverlay();
 }
-
-function setBadge(type, text) {
-  const b = document.getElementById('source-badge');
-  b.className = type;
-  b.textContent = type === 'cam' ? '● ' + text : '◼ ' + text;
+function setBadge(type,text){
+  const b=document.getElementById('source-badge');
+  b.className=type;b.textContent=(type==='cam'?'● ':'◼ ')+text;
 }
-
-// ═══════════════════════════════════
-// RESIZE
-// ═══════════════════════════════════
-function resizeOverlay() {
-  overlay.width  = window.innerWidth;
-  overlay.height = window.innerHeight;
-  if (sourceMode === 'photo') renderPhotoLayer();
-  draw();
+function resizeOverlay(){
+  overlay.width=window.innerWidth;overlay.height=window.innerHeight;
+  if(sourceMode==='photo')renderPhotoLayer();draw();
 }
-window.addEventListener('resize', resizeOverlay);
+window.addEventListener('resize',resizeOverlay);
 
-// ═══════════════════════════════════
-// CALIBRATION
-// ═══════════════════════════════════
-function startCalib() {
-  calibPts = [];
-  calibActive = true;
+function startCalib(){
+  calibPts=[];calibActive=true;
   document.getElementById('calib-overlay').classList.add('show');
-  document.getElementById('calib-status').textContent = 'Tryck på punkt 1 i bilden';
-  drawCalibOverlay();
+  document.getElementById('calib-capture').classList.add('show');
+  document.getElementById('calib-ui').classList.add('show');
+  document.getElementById('calib-p1').style.display='none';
+  document.getElementById('calib-p2').style.display='none';
+  document.getElementById('calib-status').textContent='Rikta siktet mot punkt 1 — tryck ⊕';
+  document.getElementById('cap-label').textContent='PUNKT 1';
 }
-
-function drawCalibOverlay() {
-  // Draw on overlay canvas
-  draw(); // base draw
-  // Then calibration points on top
-  calibPts.forEach((p, i) => {
-    const col = i === 0 ? '#4caf50' : '#00e5ff';
-    ctx.save();
-    ctx.strokeStyle = col; ctx.lineWidth = 2;
-    ctx.shadowColor = col; ctx.shadowBlur = 14;
-    ctx.beginPath(); ctx.arc(p.x, p.y, 12, 0, Math.PI*2); ctx.stroke();
-    ctx.fillStyle = col; ctx.shadowBlur = 6;
-    ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, Math.PI*2); ctx.fill();
-    ctx.restore();
-    ctx.save();
-    ctx.font = 'bold 12px Share Tech Mono';
-    ctx.fillStyle = col; ctx.shadowColor = '#000'; ctx.shadowBlur = 5;
-    ctx.textAlign = 'left';
-    ctx.fillText('P' + (i+1), p.x + 16, p.y - 6);
-    ctx.restore();
-  });
-  if (calibPts.length === 2) {
-    ctx.save();
-    ctx.strokeStyle = 'rgba(0,229,255,0.6)'; ctx.lineWidth = 1.5; ctx.setLineDash([6,4]);
-    ctx.beginPath(); ctx.moveTo(calibPts[0].x, calibPts[0].y); ctx.lineTo(calibPts[1].x, calibPts[1].y); ctx.stroke();
-    ctx.setLineDash([]);
-    const mx = (calibPts[0].x+calibPts[1].x)/2, my = (calibPts[0].y+calibPts[1].y)/2;
-    const px = Math.round(Math.hypot(calibPts[1].x-calibPts[0].x, calibPts[1].y-calibPts[0].y));
-    ctx.fillStyle='rgba(0,229,255,0.7)'; ctx.font='10px Share Tech Mono'; ctx.textAlign='left';
-    ctx.fillText(px+'px', mx+8, my-6);
-    ctx.restore();
-    document.getElementById('calib-status').textContent = 'Ange avstånd och tryck KLAR';
+function calibCapture(){
+  const cx=window.innerWidth/2,cy=window.innerHeight/2;
+  calibPts.push({x:cx,y:cy});
+  const idx=calibPts.length;
+  const el=document.getElementById('calib-p'+idx);
+  el.style.left=cx+'px';el.style.top=cy+'px';el.style.display='block';
+  if(idx===1){
+    document.getElementById('calib-status').textContent='Rikta siktet mot punkt 2 — tryck ⊕';
+    document.getElementById('cap-label').textContent='PUNKT 2';
+    showToast('PUNKT 1 SPARAD');
+  }else if(idx===2){
+    drawCalibLine();
+    document.getElementById('calib-status').textContent='Ange avstånd och tryck KLAR';
+    document.getElementById('calib-capture').classList.remove('show');
+    showToast('PUNKT 2 SPARAD');
   }
 }
-
-overlay.addEventListener('touchstart', e => {
-  e.preventDefault();
-  if (calibActive) {
-    const t = e.changedTouches[0];
-    handleCalibTap(t.clientX, t.clientY);
-    return;
-  }
-  Array.from(e.changedTouches).forEach(t => touches[t.identifier] = {x:t.clientX, y:t.clientY});
-  const arr = Object.values(touches);
-  if (arr.length === 2) {
-    isPinching = true;
-    lastPinchDist = Math.hypot(arr[1].x-arr[0].x, arr[1].y-arr[0].y);
-    lastPanPos = {x:(arr[0].x+arr[1].x)/2, y:(arr[0].y+arr[1].y)/2};
-    return;
-  }
-  if (arr.length === 1 && !isPinching) handleTap(arr[0].x, arr[0].y);
-}, {passive:false});
-
-overlay.addEventListener('touchmove', e => {
-  e.preventDefault();
-  if (calibActive) return;
-  Array.from(e.changedTouches).forEach(t => touches[t.identifier] = {x:t.clientX, y:t.clientY});
-  const arr = Object.values(touches);
-  if (arr.length === 2) {
-    isPinching = true;
-    const dist = Math.hypot(arr[1].x-arr[0].x, arr[1].y-arr[0].y);
-    const mid  = {x:(arr[0].x+arr[1].x)/2, y:(arr[0].y+arr[1].y)/2};
-    if (lastPinchDist) {
-      const sc = dist/lastPinchDist, oldZ = zoom;
-      zoom = Math.min(Math.max(zoom*sc, 0.3), 8);
-      panX = mid.x-(mid.x-panX)*(zoom/oldZ);
-      panY = mid.y-(mid.y-panY)*(zoom/oldZ);
-    }
-    if (lastPanPos) { panX += mid.x-lastPanPos.x; panY += mid.y-lastPanPos.y; }
-    lastPinchDist = dist; lastPanPos = mid;
-    draw(); return;
-  }
-  if (arr.length === 1 && !isPinching) handleDrag(arr[0].x, arr[0].y);
-}, {passive:false});
-
-overlay.addEventListener('touchend', e => {
-  e.preventDefault();
-  if (calibActive) return;
-  Array.from(e.changedTouches).forEach(t => {
-    delete touches[t.identifier];
-    finalizeObstacle();
-  });
-  if (Object.keys(touches).length < 2) { isPinching=false; lastPinchDist=null; lastPanPos=null; }
-}, {passive:false});
-
-overlay.addEventListener('mousedown', e => {
-  if (calibActive) { handleCalibTap(e.clientX, e.clientY); return; }
-  mouseDown = true; handleTap(e.clientX, e.clientY);
-});
-overlay.addEventListener('mousemove', e => { if (mouseDown && !calibActive) handleDrag(e.clientX, e.clientY); });
-overlay.addEventListener('mouseup', e => { mouseDown = false; if (!calibActive) finalizeObstacle(); });
-
-function handleCalibTap(x, y) {
-  if (calibPts.length >= 2) calibPts = [];
-  calibPts.push({x, y});
-  const step = calibPts.length;
-  document.getElementById('calib-status').textContent =
-    step === 1 ? 'Tryck på punkt 2 i bilden' : 'Ange avstånd och tryck KLAR';
-  drawCalibOverlay();
+function drawCalibLine(){
+  if(calibPts.length<2)return;
+  const p1=calibPts[0],p2=calibPts[1];
+  ctx.save();
+  ctx.strokeStyle='rgba(0,229,255,0.7)';ctx.lineWidth=1.5;ctx.setLineDash([6,4]);
+  ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();
+  ctx.setLineDash([]);
+  const mx=(p1.x+p2.x)/2,my=(p1.y+p2.y)/2;
+  const px=Math.round(Math.hypot(p2.x-p1.x,p2.y-p1.y));
+  ctx.fillStyle='rgba(0,229,255,0.8)';ctx.font='10px Share Tech Mono';ctx.textAlign='left';
+  ctx.fillText(px+'px',mx+8,my-6);ctx.restore();
 }
-
-function confirmCalib() {
-  if (calibPts.length < 2) { showToast('VÄLJ TVÅ PUNKTER FÖRST'); return; }
-  const inches  = parseFloat(document.getElementById('calib-inches').value) || 12;
-  const pxDist  = Math.hypot(calibPts[1].x-calibPts[0].x, calibPts[1].y-calibPts[0].y);
-
-  // pxDist is in screen pixels at current zoom/pan
-  // We need source pixels per inch
-  if (sourceMode === 'photo') {
-    // screen px → image px = / imgScale
-    pxPerInch = (pxDist / imgScale) / inches;
-  } else {
-    // cam: screen pixels directly, zoom=1 at this point
-    pxPerInch = pxDist / inches;
-  }
-
-  calibActive = false;
-  calibPts = [];
+function confirmCalib(){
+  if(calibPts.length<2){showToast('FÅNGA TVÅ PUNKTER FÖRST');return;}
+  const inches=parseFloat(document.getElementById('calib-inches').value)||12;
+  const screenDist=Math.hypot(calibPts[1].x-calibPts[0].x,calibPts[1].y-calibPts[0].y);
+  if(sourceMode==='photo') pxPerInch=(screenDist/imgScale)/inches;
+  else pxPerInch=screenDist/inches;
+  calibActive=false;calibPts=[];
   document.getElementById('calib-overlay').classList.remove('show');
-  showToast('KALIBRERAD ✓');
+  document.getElementById('calib-capture').classList.remove('show');
+  document.getElementById('calib-ui').classList.remove('show');
+  showToast('KALIBRERAD ✓  '+pxPerInch.toFixed(1)+'px/"');
+  if(sourceMode==='photo'){zoom=imgScale;panX=imgOffX;panY=imgOffY;}
+  else{zoom=1;panX=0;panY=0;}
+  draw();setMode('move');
+}
 
-  // Init pan/zoom for photo mode
-  if (sourceMode === 'photo') {
-    zoom = imgScale;
-    panX = imgOffX;
-    panY = imgOffY;
-  } else {
-    zoom = 1; panX = 0; panY = 0;
+overlay.addEventListener('touchstart',e=>{
+  e.preventDefault();
+  if(calibActive)return;
+  Array.from(e.changedTouches).forEach(t=>touches[t.identifier]={x:t.clientX,y:t.clientY});
+  const arr=Object.values(touches);
+  if(arr.length===2){isPinching=true;lastPinchDist=Math.hypot(arr[1].x-arr[0].x,arr[1].y-arr[0].y);lastPanPos={x:(arr[0].x+arr[1].x)/2,y:(arr[0].y+arr[1].y)/2};return;}
+  if(arr.length===1&&!isPinching)handleTap(arr[0].x,arr[0].y);
+},{passive:false});
+overlay.addEventListener('touchmove',e=>{
+  e.preventDefault();if(calibActive)return;
+  Array.from(e.changedTouches).forEach(t=>touches[t.identifier]={x:t.clientX,y:t.clientY});
+  const arr=Object.values(touches);
+  if(arr.length===2){
+    isPinching=true;
+    const dist=Math.hypot(arr[1].x-arr[0].x,arr[1].y-arr[0].y);
+    const mid={x:(arr[0].x+arr[1].x)/2,y:(arr[0].y+arr[1].y)/2};
+    if(lastPinchDist){const sc=dist/lastPinchDist,oldZ=zoom;zoom=Math.min(Math.max(zoom*sc,0.3),8);panX=mid.x-(mid.x-panX)*(zoom/oldZ);panY=mid.y-(mid.y-panY)*(zoom/oldZ);}
+    if(lastPanPos){panX+=mid.x-lastPanPos.x;panY+=mid.y-lastPanPos.y;}
+    lastPinchDist=dist;lastPanPos=mid;draw();return;
   }
+  if(arr.length===1&&!isPinching)handleDrag(arr[0].x,arr[0].y);
+},{passive:false});
+overlay.addEventListener('touchend',e=>{
+  e.preventDefault();if(calibActive)return;
+  Array.from(e.changedTouches).forEach(t=>{delete touches[t.identifier];finalizeObstacle();});
+  if(Object.keys(touches).length<2){isPinching=false;lastPinchDist=null;lastPanPos=null;}
+},{passive:false});
+overlay.addEventListener('mousedown',e=>{if(calibActive)return;mouseDown=true;handleTap(e.clientX,e.clientY);});
+overlay.addEventListener('mousemove',e=>{if(mouseDown&&!calibActive)handleDrag(e.clientX,e.clientY);});
+overlay.addEventListener('mouseup',e=>{mouseDown=false;if(!calibActive)finalizeObstacle();});
 
-  draw();
-  setMode('move');
+function screenToSource(sx,sy){
+  if(sourceMode==='photo')return{x:(sx-panX)/zoom,y:(sy-panY)/zoom};
+  const vw=video.videoWidth||window.innerWidth,vh=video.videoHeight||window.innerHeight;
+  const scale=Math.max(window.innerWidth/vw,window.innerHeight/vh);
+  const offX=(window.innerWidth-vw*scale)/2,offY=(window.innerHeight-vh*scale)/2;
+  return{x:(sx-offX)/scale,y:(sy-offY)/scale};
 }
-
-// ═══════════════════════════════════
-// COORDINATE HELPERS
-// All game coords stored in SOURCE pixels (image px or video px)
-// ═══════════════════════════════════
-function screenToSource(sx, sy) {
-  if (sourceMode === 'photo') {
-    return { x: (sx - panX) / zoom, y: (sy - panY) / zoom };
-  } else {
-    // cam: map screen → video pixel space
-    const vw = video.videoWidth  || window.innerWidth;
-    const vh = video.videoHeight || window.innerHeight;
-    const scale = Math.max(window.innerWidth/vw, window.innerHeight/vh);
-    const offX  = (window.innerWidth  - vw*scale) / 2;
-    const offY  = (window.innerHeight - vh*scale) / 2;
-    return { x: (sx-offX)/scale, y: (sy-offY)/scale };
-  }
+function sourceToScreen(px,py){
+  if(sourceMode==='photo')return{x:px*zoom+panX,y:py*zoom+panY};
+  const vw=video.videoWidth||window.innerWidth,vh=video.videoHeight||window.innerHeight;
+  const scale=Math.max(window.innerWidth/vw,window.innerHeight/vh);
+  const offX=(window.innerWidth-vw*scale)/2,offY=(window.innerHeight-vh*scale)/2;
+  return{x:px*scale+offX,y:py*scale+offY};
 }
+function pxToInch(p){return{x:p.x/pxPerInch,y:p.y/pxPerInch};}
+function inchToScreen(ix,iy){return sourceToScreen(ix*pxPerInch,iy*pxPerInch);}
+function screenToInch(sx,sy){return pxToInch(screenToSource(sx,sy));}
 
-function sourceToScreen(px, py) {
-  if (sourceMode === 'photo') {
-    return { x: px*zoom + panX, y: py*zoom + panY };
-  } else {
-    const vw = video.videoWidth  || window.innerWidth;
-    const vh = video.videoHeight || window.innerHeight;
-    const scale = Math.max(window.innerWidth/vw, window.innerHeight/vh);
-    const offX  = (window.innerWidth  - vw*scale) / 2;
-    const offY  = (window.innerHeight - vh*scale) / 2;
-    return { x: px*scale + offX, y: py*scale + offY };
-  }
-}
-
-// Source pixels → inches
-function pxToInch(p) { return { x: p.x/pxPerInch, y: p.y/pxPerInch }; }
-// Inches → screen
-function inchToScreen(ix, iy) {
-  return sourceToScreen(ix*pxPerInch, iy*pxPerInch);
-}
-// Screen → inches
-function screenToInch(sx, sy) {
-  return pxToInch(screenToSource(sx, sy));
-}
-
-// ═══════════════════════════════════
-// DRAW
-// ═══════════════════════════════════
-function draw() {
-  const W = overlay.width, H = overlay.height;
-  ctx.clearRect(0, 0, W, H);
-
-  if (!sourceMode) return;
-
-  // In cam mode, video shows through. In photo mode, photoLayer is behind.
-  // Just draw game overlays.
-
-  // Obstacles
-  for (const o of obstacles) {
-    const s = inchToScreen(o.x1, o.y1);
-    const e = inchToScreen(o.x2, o.y2);
-    ctx.fillStyle = 'rgba(139,26,26,0.42)';
-    ctx.fillRect(s.x,s.y,e.x-s.x,e.y-s.y);
+function draw(){
+  const W=overlay.width,H=overlay.height;
+  ctx.clearRect(0,0,W,H);
+  if(!sourceMode)return;
+  for(const o of obstacles){
+    const s=inchToScreen(o.x1,o.y1),e=inchToScreen(o.x2,o.y2);
+    ctx.fillStyle='rgba(139,26,26,0.42)';ctx.fillRect(s.x,s.y,e.x-s.x,e.y-s.y);
     ctx.strokeStyle='rgba(255,80,80,0.7)';ctx.lineWidth=1.5;ctx.setLineDash([5,4]);
     ctx.strokeRect(s.x,s.y,e.x-s.x,e.y-s.y);ctx.setLineDash([]);
     ctx.fillStyle='rgba(255,120,120,0.7)';ctx.font='9px Share Tech Mono';ctx.textAlign='left';
     ctx.fillText('OBST',s.x+4,s.y+12);
   }
-
-  // Obstacle preview
-  if (mode==='obstacle' && obsStart && endPt) {
-    const s=inchToScreen(obsStart.x,obsStart.y), e=inchToScreen(endPt.x,endPt.y);
+  if(mode==='obstacle'&&obsStart&&endPt){
+    const s=inchToScreen(obsStart.x,obsStart.y),e=inchToScreen(endPt.x,endPt.y);
     const x1=Math.min(s.x,e.x),y1=Math.min(s.y,e.y),x2=Math.max(s.x,e.x),y2=Math.max(s.y,e.y);
     ctx.fillStyle='rgba(139,26,26,0.2)';ctx.fillRect(x1,y1,x2-x1,y2-y1);
     ctx.strokeStyle='rgba(255,80,80,0.4)';ctx.lineWidth=1;ctx.setLineDash([4,4]);
     ctx.strokeRect(x1,y1,x2-x1,y2-y1);ctx.setLineDash([]);
   }
-
-  if (!startPt) return;
-  const sp = inchToScreen(startPt.x, startPt.y);
-
-  if ((mode==='move'||mode==='advance') && pathPts.length >= 2) {
+  if(!startPt)return;
+  const sp=inchToScreen(startPt.x,startPt.y);
+  if((mode==='move'||mode==='advance')&&pathPts.length>=2){
     const limit=mode==='advance'?moveLimit+advBonus:moveLimit;
-    const dist=pathLengthInches(), over=dist>limit, col=over?'#ff4444':'#00e5ff';
-    const rPx = limit*pxPerInch*(sourceMode==='photo'?zoom:getVideoScale());
+    const dist=pathLengthInches(),over=dist>limit,col=over?'#ff4444':'#00e5ff';
+    const rPx=limit*pxPerInch*(sourceMode==='photo'?zoom:getVideoScale());
     ctx.strokeStyle=over?'rgba(255,68,68,0.18)':'rgba(0,229,255,0.13)';
-    ctx.lineWidth=1;ctx.setLineDash([3,5]);
-    ctx.beginPath();ctx.arc(sp.x,sp.y,rPx,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
-    ctx.save();ctx.strokeStyle=col;ctx.lineWidth=3;ctx.setLineDash([10,7]);
-    ctx.shadowColor=col;ctx.shadowBlur=14;ctx.beginPath();
+    ctx.lineWidth=1;ctx.setLineDash([3,5]);ctx.beginPath();ctx.arc(sp.x,sp.y,rPx,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+    ctx.save();ctx.strokeStyle=col;ctx.lineWidth=3;ctx.setLineDash([10,7]);ctx.shadowColor=col;ctx.shadowBlur=14;ctx.beginPath();
     const fp=inchToScreen(pathPts[0].x,pathPts[0].y);ctx.moveTo(fp.x,fp.y);
     for(let i=1;i<pathPts.length;i++){const pp=inchToScreen(pathPts[i].x,pathPts[i].y);ctx.lineTo(pp.x,pp.y);}
     ctx.stroke();ctx.setLineDash([]);ctx.restore();
-    const ep=inchToScreen(endPt.x,endPt.y);
-    drawMarker(ep.x,ep.y,col,dist.toFixed(1)+'"');
+    const ep=inchToScreen(endPt.x,endPt.y);drawMarker(ep.x,ep.y,col,dist.toFixed(1)+'"');
   }
-
-  if (mode==='shoot' && endPt) {
+  if(mode==='shoot'&&endPt){
     const ep=inchToScreen(endPt.x,endPt.y);
     const dist=Math.hypot(endPt.x-startPt.x,endPt.y-startPt.y);
-    const inR=dist<=weapRange, col=inR?'#00e5ff':'#ff4444';
+    const inR=dist<=weapRange,col=inR?'#00e5ff':'#ff4444';
     const rPx=weapRange*pxPerInch*(sourceMode==='photo'?zoom:getVideoScale());
     ctx.strokeStyle=inR?'rgba(0,229,255,0.12)':'rgba(255,68,68,0.18)';
-    ctx.lineWidth=1;ctx.setLineDash([3,5]);
-    ctx.beginPath();ctx.arc(sp.x,sp.y,rPx,0,Math.PI*2);ctx.stroke();
-    ctx.save();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.setLineDash([14,6]);
-    ctx.shadowColor=col;ctx.shadowBlur=10;
-    ctx.beginPath();ctx.moveTo(sp.x,sp.y);ctx.lineTo(ep.x,ep.y);ctx.stroke();
-    ctx.setLineDash([]);ctx.restore();
-    drawArrow(sp,ep,col);
-    drawMarker(ep.x,ep.y,col,dist.toFixed(1)+'" / '+weapRange+'"');
+    ctx.lineWidth=1;ctx.setLineDash([3,5]);ctx.beginPath();ctx.arc(sp.x,sp.y,rPx,0,Math.PI*2);ctx.stroke();
+    ctx.save();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.setLineDash([14,6]);ctx.shadowColor=col;ctx.shadowBlur=10;
+    ctx.beginPath();ctx.moveTo(sp.x,sp.y);ctx.lineTo(ep.x,ep.y);ctx.stroke();ctx.setLineDash([]);ctx.restore();
+    drawArrow(sp,ep,col);drawMarker(ep.x,ep.y,col,dist.toFixed(1)+'" / '+weapRange+'"');
   }
-
-  if (mode==='blast' && endPt) {
+  if(mode==='blast'&&endPt){
     const ep=inchToScreen(endPt.x,endPt.y);
     const r=Math.hypot(ep.x-sp.x,ep.y-sp.y);
-    const rIn=r/( (sourceMode==='photo'?zoom:getVideoScale()) * pxPerInch );
+    const rIn=r/((sourceMode==='photo'?zoom:getVideoScale())*pxPerInch);
     const g2=ctx.createRadialGradient(sp.x,sp.y,0,sp.x,sp.y,r);
     g2.addColorStop(0,'rgba(255,109,0,0.4)');g2.addColorStop(0.7,'rgba(255,50,0,0.12)');g2.addColorStop(1,'rgba(255,50,0,0)');
     ctx.fillStyle=g2;ctx.beginPath();ctx.arc(sp.x,sp.y,r,0,Math.PI*2);ctx.fill();
@@ -585,55 +399,29 @@ function draw() {
     ctx.beginPath();ctx.moveTo(sp.x,sp.y);ctx.lineTo(ep.x,ep.y);ctx.stroke();ctx.setLineDash([]);
     drawMarker(sp.x,sp.y,'#ff6d00','r='+rIn.toFixed(1)+'"');
   }
-
-  drawMarker(sp.x,sp.y,'#4caf50','START');
-  updateDist();
+  drawMarker(sp.x,sp.y,'#4caf50','START');updateDist();
 }
-
-function getVideoScale() {
-  const vw=video.videoWidth||window.innerWidth, vh=video.videoHeight||window.innerHeight;
-  return Math.max(window.innerWidth/vw, window.innerHeight/vh);
+function getVideoScale(){
+  const vw=video.videoWidth||window.innerWidth,vh=video.videoHeight||window.innerHeight;
+  return Math.max(window.innerWidth/vw,window.innerHeight/vh);
 }
-
-function drawMarker(x,y,color,label) {
-  ctx.save();
-  ctx.strokeStyle=color;ctx.lineWidth=2;ctx.shadowColor=color;ctx.shadowBlur=12;
+function drawMarker(x,y,color,label){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=2;ctx.shadowColor=color;ctx.shadowBlur=12;
   ctx.beginPath();ctx.arc(x,y,9,0,Math.PI*2);ctx.stroke();
-  ctx.fillStyle=color;ctx.shadowBlur=5;
-  ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
-  ctx.restore();
-  if(label){
-    ctx.save();ctx.font='bold 11px Share Tech Mono';
-    ctx.fillStyle=color;ctx.shadowColor='#000';ctx.shadowBlur=5;ctx.textAlign='left';
-    ctx.fillText(label,x+13,y-5);ctx.restore();
-  }
+  ctx.fillStyle=color;ctx.shadowBlur=5;ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();ctx.restore();
+  if(label){ctx.save();ctx.font='bold 11px Share Tech Mono';ctx.fillStyle=color;ctx.shadowColor='#000';ctx.shadowBlur=5;ctx.textAlign='left';ctx.fillText(label,x+13,y-5);ctx.restore();}
 }
-
-function drawArrow(from,to,color) {
+function drawArrow(from,to,color){
   const angle=Math.atan2(to.y-from.y,to.x-from.x),len=10;
   ctx.save();ctx.fillStyle=color;ctx.beginPath();
-  ctx.moveTo(to.x,to.y);
-  ctx.lineTo(to.x-len*Math.cos(angle-0.4),to.y-len*Math.sin(angle-0.4));
-  ctx.lineTo(to.x-len*Math.cos(angle+0.4),to.y-len*Math.sin(angle+0.4));
+  ctx.moveTo(to.x,to.y);ctx.lineTo(to.x-len*Math.cos(angle-0.4),to.y-len*Math.sin(angle-0.4));ctx.lineTo(to.x-len*Math.cos(angle+0.4),to.y-len*Math.sin(angle+0.4));
   ctx.closePath();ctx.fill();ctx.restore();
 }
-
-// Cam mode: continuous redraw
-function camLoop() {
-  if (sourceMode === 'cam' && !calibActive) draw();
-  requestAnimationFrame(camLoop);
-}
+function camLoop(){if(sourceMode==='cam'&&!calibActive)draw();requestAnimationFrame(camLoop);}
 requestAnimationFrame(camLoop);
 
-// ═══════════════════════════════════
-// PATHFINDING
-// ═══════════════════════════════════
-function inObstacle(ix,iy) {
-  for(const o of obstacles)
-    if(ix>=o.x1-0.3&&ix<=o.x2+0.3&&iy>=o.y1-0.3&&iy<=o.y2+0.3) return true;
-  return false;
-}
-function computePath() {
+function inObstacle(ix,iy){for(const o of obstacles)if(ix>=o.x1-0.3&&ix<=o.x2+0.3&&iy>=o.y1-0.3&&iy<=o.y2+0.3)return true;return false;}
+function computePath(){
   if(!startPt||!endPt){pathPts=[];return;}
   const toCell=(ix,iy)=>({gx:Math.round(ix/CELL),gy:Math.round(iy/CELL)});
   const toI=(gx,gy)=>({x:gx*CELL,y:gy*CELL});
@@ -645,11 +433,9 @@ function computePath() {
   const visited=new Map();visited.set(key(s.gx,s.gy),0);
   let found=null,iter=0;
   while(open.length&&iter++<5000){
-    open.sort((a,b)=>a.f-b.f);
-    const cur=open.shift();
+    open.sort((a,b)=>a.f-b.f);const cur=open.shift();
     if(cur.gx===g.gx&&cur.gy===g.gy){found=cur;break;}
-    const k=key(cur.gx,cur.gy);
-    if(visited.has(k)&&visited.get(k)<cur.cost-0.001)continue;
+    const k=key(cur.gx,cur.gy);if(visited.has(k)&&visited.get(k)<cur.cost-0.001)continue;
     for(const[dx,dy,dc]of DIRS){
       const nx=cur.gx+dx,ny=cur.gy+dy,nk=key(nx,ny);
       const ip=toI(nx,ny);if(inObstacle(ip.x,ip.y))continue;
@@ -660,16 +446,10 @@ function computePath() {
   if(!found){pathPts=[startPt,endPt];return;}
   const pts=[];let n=found;while(n){pts.unshift(toI(n.gx,n.gy));n=n.parent;}pathPts=pts;
 }
-function pathLengthInches(){
-  let d=0;for(let i=1;i<pathPts.length;i++)d+=Math.hypot(pathPts[i].x-pathPts[i-1].x,pathPts[i].y-pathPts[i-1].y);return d;
-}
+function pathLengthInches(){let d=0;for(let i=1;i<pathPts.length;i++)d+=Math.hypot(pathPts[i].x-pathPts[i-1].x,pathPts[i].y-pathPts[i-1].y);return d;}
 
-// ═══════════════════════════════════
-// INTERACTION
-// ═══════════════════════════════════
 function handleTap(sx,sy){
-  if(isPinching)return;
-  const pt=screenToInch(sx,sy);
+  if(isPinching)return;const pt=screenToInch(sx,sy);
   if(mode==='obstacle'){obsStart=pt;endPt=null;return;}
   if(mode==='blast'){startPt=pt;endPt={x:pt.x+3,y:pt.y};draw();updateDist();return;}
   if(['move','advance','shoot'].includes(mode)){
@@ -679,13 +459,10 @@ function handleTap(sx,sy){
   }
 }
 function handleDrag(sx,sy){
-  if(isPinching)return;
-  const pt=screenToInch(sx,sy);
+  if(isPinching)return;const pt=screenToInch(sx,sy);
   if(mode==='obstacle'&&obsStart){endPt=pt;draw();return;}
   if(['move','advance','shoot','blast'].includes(mode)&&startPt&&phase==='end'){
-    endPt=pt;
-    if(mode==='move'||mode==='advance')computePath();
-    draw();updateDist();
+    endPt=pt;if(mode==='move'||mode==='advance')computePath();draw();updateDist();
   }
 }
 function finalizeObstacle(){
@@ -697,12 +474,8 @@ function finalizeObstacle(){
   }
 }
 
-// ═══════════════════════════════════
-// UI
-// ═══════════════════════════════════
 function updateDist(){
-  const el=document.getElementById('dist-display');
-  const meta=document.getElementById('meta-text');
+  const el=document.getElementById('dist-display'),meta=document.getElementById('meta-text');
   let dist=0,limit=9999,check=false;
   if((mode==='move'||mode==='advance')&&pathPts.length>=2){dist=pathLengthInches();limit=mode==='advance'?moveLimit+advBonus:moveLimit;check=true;}
   else if(mode==='shoot'&&startPt&&endPt){dist=Math.hypot(endPt.x-startPt.x,endPt.y-startPt.y);limit=weapRange;check=true;}
@@ -713,9 +486,7 @@ function updateDist(){
   else if(mode==='shoot')meta.textContent='RÄCKV '+weapRange+'"';
   else meta.textContent='';
 }
-
 const HINTS={move:'Tryck startpunkt → dra till mål',advance:'Tryck startpunkt → dra till mål',shoot:'Tryck vapenpunkt → dra till mål',blast:'Tryck mittpunkt → dra för radie',obstacle:'Dra för att rita ett hinder'};
-
 async function setMode(m){
   mode=m;phase='start';startPt=null;endPt=null;pathPts=[];obsStart=null;
   document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
@@ -723,14 +494,11 @@ async function setMode(m){
   if(m==='move'||m==='advance'){
     const v=await showPopup('ENHETENS MOVE-VÄRDE (")',moveLimit);if(v!==null)moveLimit=v;
     if(m==='advance'){const v2=await showPopup('ADVANCE D6-BONUS',advBonus);if(v2!==null)advBonus=v2;}
-  }else if(m==='shoot'){
-    const v=await showPopup('VAPENRÄCKVIDD (")',weapRange);if(v!==null)weapRange=v;
-  }
+  }else if(m==='shoot'){const v=await showPopup('VAPENRÄCKVIDD (")',weapRange);if(v!==null)weapRange=v;}
   updateDist();
 }
 function clearAll(){startPt=null;endPt=null;pathPts=[];obstacles=[];obsStart=null;phase='start';draw();updateDist();showToast('RENSAT');}
 function setHint(t){document.getElementById('hint-text').textContent=t;}
-
 function showPopup(label,def){
   return new Promise(resolve=>{
     popupResolve=resolve;
@@ -747,13 +515,10 @@ function closePopup(ok){
 }
 document.getElementById('popup-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('popup-overlay'))closePopup(false);});
 document.getElementById('popup-input').addEventListener('keydown',e=>{if(e.key==='Enter')closePopup(true);if(e.key==='Escape')closePopup(false);});
-
 function showToast(msg){
   const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
   clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1800);
 }
-
-// ── GO ──
 init();
 </script>
 </body>
